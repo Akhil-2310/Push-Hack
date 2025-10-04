@@ -42,9 +42,9 @@ const READ_ALL_POSTS_ABI = [
         {"internalType": "uint256", "name": "tips", "type": "uint256"},
         {"internalType": "uint256", "name": "tipAmount", "type": "uint256"}
       ],
-      "internalType": "struct TipCit.Post[]",
+      "internalType": "struct Tip.Post[]",
       "name": "",
-      "type": "tuple[]"
+      "type": "tuple[]" 
     }],
     "stateMutability": "view",
     "type": "function"
@@ -64,9 +64,9 @@ export default function HomePage() {
     setLoading(true)
     try {
       // Use read-only provider to avoid ENS issues
-      const provider = new JsonRpcProvider('https://rpc.testnet.citrea.xyz', {
-        chainId: 5115,
-        name: 'citrea-testnet',
+      const provider = new JsonRpcProvider('https://evm.rpc-testnet-donut-node1.push.org/', {
+        chainId: 42101,
+        name: 'push-testnet',
       })
       const contract = new Contract(CONTRACT_ADDRESS, READ_ALL_POSTS_ABI, provider)
           
@@ -80,7 +80,7 @@ export default function HomePage() {
         description: post.description,
         timestamp: new Date(Number(post.timestamp) * 1000).toISOString(),
         tips: Number(post.tips),
-        tipAmount: Number(post.tipAmount) / 1e18 // Convert from wei to cBTC
+        tipAmount: Number(post.tipAmount) / 1e18 // Convert from wei to PC
       }))
       
       // Sort by timestamp, newest first
