@@ -14,7 +14,7 @@ A decentralized platform built on Push Donut testnet where users can share their
 ## Tech Stack 🛠️
 
 - **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
-- **Blockchain**: Citrea Testnet, Solidity Smart Contracts
+- **Blockchain**: Push Testnet, Solidity Smart Contracts
 - **Wallet Integration**: Reown AppKit (WalletConnect)
 - **Web3 Library**: Ethers.js v6
 
