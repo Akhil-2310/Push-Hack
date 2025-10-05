@@ -13,6 +13,7 @@ interface Post {
   timestamp: string
   tips: number
   tipAmount: number
+  imageUrl?: string
 }
 
 interface PostCardProps {
@@ -28,6 +29,18 @@ export default function PostCard({ post, isOwn = false }: PostCardProps) {
   
   // Check if current user is the author of this post
   const isUserPost = address && post.authorAddress.toLowerCase() === address.toLowerCase()
+
+  // Parse description to separate text and image
+  const parseDescription = (description: string) => {
+    const separator = '|||IMAGE|||'
+    if (description.includes(separator)) {
+      const [text, imageData] = description.split(separator)
+      return { text, imageData }
+    }
+    return { text: description, imageData: null }
+  }
+
+  const { text: postDescription, imageData } = parseDescription(post.description)
 
   const formatDate = (timestamp: string) => {
     return new Date(timestamp).toLocaleDateString("en-US", {
@@ -60,7 +73,16 @@ export default function PostCard({ post, isOwn = false }: PostCardProps) {
 
       <div className="mb-4">
         <h2 className="text-lg font-semibold text-gray-900 mb-2">🎉 {post.achievement}</h2>
-        <p className="text-gray-700 leading-relaxed">{post.description}</p>
+        <p className="text-gray-700 leading-relaxed">{postDescription}</p>
+        {imageData && (
+          <div className="mt-3">
+            <img
+              src={imageData}
+              alt="Post image"
+              className="w-full rounded-lg border border-gray-200 max-h-96 object-cover"
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
